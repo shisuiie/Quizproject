@@ -7,6 +7,7 @@ import random
 names = []
 global questions_answers
 asked=[]
+score=0
 
 questions_answers = {
 
@@ -56,11 +57,11 @@ class Quiz:
         self.entry_box.grid(row=2,padx=20, pady=20)
         
         #continue button
-        self.continue_button = Button(self.quiz_frame, text="Continue", font=("Helvetica", "13", "bold"), bg="orange", command=self.name_collection)
+        self.continue_button = Button(self.quiz_frame, text="Continue", font=("Helvetica", "13", "bold"), bg="#38761d", command=self.name_collection)
         self.continue_button.grid(row=5,  padx=20, pady=20, sticky="e")
         
         #exit Button
-        self.exit_button= Button(self.quiz_frame, text="Exit", font=("Helvetica","13","bold"), bg="#dd7e6b", command=self.quiz_frame.destroy)
+        self.exit_button= Button(self.quiz_frame, text="Exit", font=("Helvetica","13","bold"), bg="#dd7e6b", command=self.quiz_frame.destroy, width= 5)
         self.exit_button.grid(row=5, padx=20, pady=20, sticky="w")
 
         
@@ -102,7 +103,7 @@ class Questionwindow:
     self.rb2.grid(row=3, sticky="w")
 
    #third radio buttom
-    self.rb3 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][3], font=("Helvetica","12"), bg=background_color, value=3, variable=self.var1, indicator=3,pady=10)
+    self.rb3 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][3], font=("Helvetica","12"), bg=background_color, value=3, variable=self.var1, indicator=2,pady=10)
     self.rb3.grid(row=4, sticky="w")
 
     #fourth radio buttom
@@ -110,8 +111,30 @@ class Questionwindow:
     self.rb4.grid(row=5, sticky="w")
 
     #confirm answer button
-    self.confirm_button = Button(self.quiz_frame, text="Confirm",bg="Green")
+    self.confirm_button = Button(self.quiz_frame, text="Confirm",bg="Green", command=self.test_progress)
     self.confirm_button.grid(row=6)
+
+    #score label (test esult so far)
+    self.score_label=Label(self.quiz_frame, text="Score", font=("Helvetica","16"), bg=background_color,)
+    self.score_label.grid(row=7, pady=1)
+
+
+
+  #Method for Edting the question labe; and radio buttons o show the next questions data
+  def questions_setup(self):
+    randomiser()
+    self.var1.set(0)
+    self.question_label.config(text=questions_answers[qnum][0])
+    self.rb1.config(text=questions_answers[qnum][1])
+    self.rb2.config(text=questions_answers[qnum][2])
+    self.rb3.config(text=questions_answers[qnum][3])
+    self.rb4.config(text=questions_answers[qnum][4])
+
+  #This is the method that would get the invoked with the confirm answer button is clicked, to take care of test_progress
+  def test_progress(self):
+    global score
+
+
 
 
 
